@@ -1,0 +1,94 @@
+﻿@model Nwd.BackOffice.Model.Album
+@{
+    ViewBag.Title = "album Page";
+}
+
+    <h2>Formulaire d'edition des albums</h2>
+
+
+
+
+@using (Html.BeginForm("EditAlbum", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+            <legend>Album à modifier</legend>
+        @Html.HiddenFor(album => album.Id)
+        @Html.HiddenFor(album => album.Artist_Id)
+        @Html.HiddenFor(album => album.CoverImagePath)
+        @Html.HiddenFor(album => album.Tracks)
+        <div>
+                <label>Title:</label>
+            </div>
+            <div>
+                
+                @Html.TextBoxFor(album => album.Title, new { placeholder = "@ViewData.Model.Title"})
+                
+            </div>
+            <div>
+                <label>ReleaseDate:</label>
+            </div>
+            <div>
+                @Html.TextBoxFor(album => album.ReleaseDate, new { placeholder = "@ViewData.Model.ReleaseDate" })
+            </div>
+        <div>
+            <label>Artiste:</label>
+        </div>
+        <div>
+            @Html.TextBoxFor(album => album.Artist, new { placeholder = "@ViewData.Model.Artiste" })
+        </div>
+        <div>
+            @Html.TextBoxFor(album => album.CoverImagePath, new { placeholder = "@ViewData.Model.CoverImagePath" })
+        </div>
+        <div>
+            @Html.TextBoxFor(album => album.CoverFile, new { placeholder = "@ViewData.Model.CoverFile" })
+        </div>
+        <div>
+            <label>Duration:</label>
+        </div>
+        <div>
+            @Html.TextBoxFor(album => album.Duration, new { placeholder = "@ViewData.Model.Duration" })
+        </div>
+        <div>
+            <label>Type:</label>
+        </div>
+        <div>
+            @Html.TextBoxFor(album => album.Type, new { placeholder = "@ViewData.Model.Type" })
+        </div>
+        <div>
+            @*<input class="multifile" type="file" name="files[]">*@
+            <input type="file" name="Tracks[0].File" />
+        </div>
+        <div>
+            <input type="submit" value="Enregistrer" class="submit" />
+        </div>
+
+        </fieldset>
+    
+         <ul>
+            @foreach (var track in ViewData.Model.Tracks)
+            {
+                <li>Track :@track.Song.Name </li>
+            }
+        </ul>
+
+}
+
+@*<script>
+$('.multifile').multifile({
+    container: "#upload-container",
+    template: function (file) {
+        var fileName = file.name;
+        var fileExtension = file.name.split('.').pop();
+
+        var result =
+            '<p class="uploaded_image">' +
+    '<a href="#" class="multifile_remove_input">Close me</a>' +
+    '<span class="filename">$fileName ($fileExtension)</span>' +
+    '</p>';
+
+        result = result.replace('$fileExtension', fileExtension).replace('$fileName', fileName)
+
+        return $(result);
+    }
+})
+</script>*@
